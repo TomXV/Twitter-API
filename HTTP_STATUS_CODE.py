@@ -2,6 +2,9 @@ def HTTP_STATUS_CODE(code):
   if code == 200:
   	print('OK\n')
   	print('Success')
+  elif code == 201:
+      print('OK\n')
+      print('Created')
   elif code == 304:
     print('Not Modified\n')
     print('There was no new data to return.')

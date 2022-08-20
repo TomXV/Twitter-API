@@ -14,7 +14,7 @@ ACCESS_TOKEN = json_load["APIs"]["ACCESS_TOKEN"]
 ACCESS_TOKEN_SECRET = json_load["APIs"]["ACCESS_TOKEN_SECRET"]
 twitter = OAuth1Session(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-url = "https://api.twitter.com/1.1/statuses/update.json"
+url = "https://api.twitter.com/2/tweets"
 	
 import os
 os.system("cls")
@@ -27,11 +27,11 @@ print(input_tweet + '\n')
 print("Is it okay if I tweet this?\n")
 input_tweet_check = str(input("Y type to 1/N type to 0: "))
 
-params = {"status" : tweet}
+params = {"text" : tweet}
 
 if input_tweet_check.lower() == "y" or input_tweet_check.lower() == "1":
-    req = twitter.post(url, params = params) #ここでツイート
-    if req.status_code == 200: #成功
+    req = twitter.post(url, json = params) #ここでツイート
+    if req.status_code == 200 or 201: #成功
           HTTP_STATUS_CODE(req.status_code)
     else: #エラー
           print("ERROR : %d\n"% req.status_code)
@@ -39,3 +39,7 @@ if input_tweet_check.lower() == "y" or input_tweet_check.lower() == "1":
 else:
     print("tweet canceled")
     exit()
+
+print('')
+print('Response Json Data\n')
+print(req.json())
